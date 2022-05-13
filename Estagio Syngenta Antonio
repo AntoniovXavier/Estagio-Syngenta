@@ -1,0 +1,141 @@
+
+import datetime
+
+# Denominação das variáveis iniciais ###############
+
+hoteis = ["lakewood", "bridgewood", "ridgewood"]
+
+# Hotel 1: lakewood
+class1 = 3
+taxa_regular_semana1 = 110
+taxa_regular_fds1 = 90
+taxa_reward_semana1 = 80
+taxa_reward_fds1 = 80
+total1 = 0
+
+# Hotel 2: bridgewood
+class2 = 4
+taxa_regular_semana2 = 160
+taxa_regular_fds2 = 60
+taxa_reward_semana2 = 110
+taxa_reward_fds2 = 50
+total2 = 0
+
+# Hotel 3: ridgewood
+class3 = 5
+taxa_regular_semana3 = 220
+taxa_regular_fds3 = 150
+taxa_reward_semana3 = 100
+taxa_reward_fds3 = 40
+total3 = 0
+
+# Dados da entrada do hóspede
+
+cliente = input("insira o tipo de hóspede (Normal ou participante do programa de fidelidade) e os dias de hospedagem: ")
+vetor_cliente = cliente.split(" ")
+datas = []
+
+
+# comparação das variáveis #######################
+
+for i in range(1,len(vetor_cliente)):
+    y = vetor_cliente[i]
+    a = int(y[0:2])
+    b = y[2:5]
+    c = int(y[5:9])
+    dict = {
+      "Jan": 1,
+      "Fev": 2,
+      "Mar": 3,
+      "Apr": 4,
+      "May": 5,
+      "Jun": 6,
+      "Jul": 7,
+      "Aug": 8,
+      "Sep": 9,
+      "Oct": 10,
+      "Nov": 11,
+      "Dec": 12,
+
+    }
+
+    z = datetime.datetime(c, dict[b], a)
+    datas.append(z.strftime("%A"))
+
+
+total = []
+
+if vetor_cliente[0] == "Regular:":
+
+
+    for i in range(len(datas)):
+
+        if datas[i] == "Sunday" or datas[i] == "Saturday":
+
+            total1 = total1 + taxa_regular_fds1
+            total2 = total2 + taxa_regular_fds2
+            total3 = total3 + taxa_regular_fds3
+
+        else:
+            total1 = total1 + taxa_regular_semana1
+            total2 = total2 + taxa_regular_semana2
+            total3 = total3 + taxa_regular_semana3
+
+
+    total.append(total1)
+    total.append(total2)
+    total.append(total3)
+
+
+else:
+
+
+    for i in range(len(datas)):
+
+        if datas[i] == "Sunday" or datas[i] == "Saturday":
+
+            total1 = total1 + taxa_reward_fds1
+            total2 = total2 + taxa_reward_fds2
+            total3 = total3 + taxa_reward_fds3
+
+        else:
+            total1 = total1 + taxa_reward_semana1
+            total2 = total2 + taxa_reward_semana2
+            total3 = total3 + taxa_reward_semana3
+
+    total.append(total1)
+    total.append(total2)
+    total.append(total3)
+
+
+
+if total3 == total2 and total2 == total1:
+
+    print(hoteis[2])
+
+elif total3 == total2 and total3 < total1:
+
+   print(hoteis[2])
+
+elif total3 == total1 and total3 < total2:
+
+   print(hoteis[2])
+
+elif total2 == total1 and total2 < total3:
+
+    print(hoteis[1])
+
+elif total.index(min(total)) == 0:
+
+    print(hoteis[0])
+
+elif total.index(min(total)) == 1:
+
+    print(hoteis[1])
+
+else:
+
+    print(hoteis[2])
+
+
+
